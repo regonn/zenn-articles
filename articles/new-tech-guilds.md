@@ -1,7 +1,7 @@
 ---
 title: "新しい働き方ギルドというコミュニティ(妄想)"
 emoji: "🛠"
-type: "tech" # tech: 技術記事 / idea: アイデア
+type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["guild", "community", "workstyle"]
 published: true
 ---
