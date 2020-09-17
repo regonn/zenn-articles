@@ -36,7 +36,7 @@ Kaggle というかデータサイエンスにおいては、 **コードだけ�
 
 ざっくりと図にまとめてみるとこんな感じです。
 
-![Image from Gyazo](https://i.gyazo.com/2a45b714a7f85d366474f6fd0568e5d9.png)
+![](https://storage.googleapis.com/zenn-user-upload/gobndpnunm47b4zppcav48jhar6f)
 
 プログラミングはデータを処理または表示するための行為なので、たとえコードが何をしたいのかを理解して写経していても、仮説と検証の部分が抜けてしまっている場合も多いです。特に Kaggle の Notebook では、処理に必要な順に書かれていたり、最終的に必要になった処理しか残っていません。
 
