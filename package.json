@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/regonn/zenn-articles#readme",
   "dependencies": {
-    "zenn-cli": "^0.1.61"
+    "zenn-cli": "^0.1.63"
   },
   "devDependencies": {
     "textlint": "^11.7.6",
