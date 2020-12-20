@@ -17,7 +17,7 @@ Numerai や Numerai Signals については次の記事を読んでもらえる�
 - [機械学習による株価予測　はじめよう Numerai \- Qiita](https://qiita.com/blog_UKI/items/fb401725288e58c92bd6)
 - [機械学習による株価予測　さがそう 真の Numerai Signals \- Qiita](https://qiita.com/blog_UKI/items/6f044b41819f1f003426)
 
-ざっくり説明すると、**株価の値動きを Kaggle のコンペみたいにデータサイエンスティスト達に予測させて、それで運用してみて、結果を予測が当たった人に分配していく仕組みのヘッジファンド**の仕組みです。
+ざっくり説明すると、**株価の値動きを Kaggle のコンペみたいにデータサイエンスティスト達に予測させて、それで運用してみて、結果を予測が当たった人に分配していく仕組みのヘッジファンド**です。
 
 特に Numerai Signals はアノニマイズ(匿名化)されていないデータを予測するので、実際の日本やアメリカの株式銘柄が今後 1 週間で上がるか下がるかを予測します。
 
@@ -27,15 +27,15 @@ Numerai や Numerai Signals については次の記事を読んでもらえる�
 
 ## 投資方法
 
-投資方法は[マーケット・ニュートラル運用](https://www.daiwa-am.co.jp/guide/term/ma/maake_1.html)という、相場の影響を減らして運用する方式を採用。
-今回はまだ、Signals モデルも改良中なので、お試しとして千円から銘柄に投資できる、OneTapBUY 証券を利用しました。
+投資方法は[マーケット・ニュートラル運用](https://www.daiwa-am.co.jp/guide/term/ma/maake_1.html)という、相場の影響を減らして運用する方式を採用しました。
+今回はまだ、Signals モデルも改良中なので、お試しとして千円から銘柄に投資できる、OneTapBUY 証券を利用しています。
 
 https://www.onetapbuy.co.jp/base/begin/begin.html
 
-また銘柄も次のように毎週銘柄を変更して購入しています。
-
 運用期間: 2020 年 11 月 13 日(金)　～ 2020 年 12 月 19 日(土)(この記事の公開日)
 Signals の Round では(238~242)
+
+また銘柄も次のように毎週銘柄を変更して購入しています。
 
 - 日本株
 
@@ -50,16 +50,16 @@ Signals の Round では(238~242)
 
 OneTapBUY では千円の少額で購入できる代わりに、取引できる銘柄が限定されていたり、手数料(スプレッド)もあるので気をつけて下さい。また、米株には為替も影響してきます。
 
-OneTapBUY で少額のマーケット・ニュートラルを実施するために、このような形になっていますが、他にも信用取引で Signal 上位銘柄を買い、下位銘柄を売りにするほうが良いかもしれません。
+OneTapBUY で少額のマーケット・ニュートラルを実施するために、このような形になっています。信用取引で Signal 上位銘柄を買い、下位銘柄を売りにする方式もあります。
 
-また、[IG 証券](https://www.ig.com/jp/welcome-page)を利用すれば、日本・米銘柄だけでなく世界の証券所銘柄を CFD 取引で購入できますが、手数料が高く今回は諦めましたが投資額によっては運用可能かもしれません。
+また、[IG 証券](https://www.ig.com/jp/welcome-page)を利用すれば、日本・米銘柄だけでなく世界の証券所銘柄を CFD 取引で購入できますが、手数料が高く今回は諦めました。しかし、投資額によっては運用可能かもしれません。
 
 ## 銘柄選定用のコード
 
 ### OneTapBUY 採用銘柄リスト
 
 OneTapBUY の採用銘柄(日本株・米株)は、リストになっているものがなかったので自分で作りました。
-CSV で公開しておきますが、何かしら公開にあたり問題が発生したら削除する可能性もあります。
+CSV で公開しておきますが、公開にあたり何かしら問題が発生したら削除する可能性もあります。
 
 https://gist.github.com/regonn/3d8128c6d605d77fcb8e0e58d4257de9
 
@@ -69,7 +69,7 @@ https://gist.github.com/regonn/3d8128c6d605d77fcb8e0e58d4257de9
 
 - Numerai Signals の公式 example コード
 - [Let’s talk about Signals\. Can you make unique and equally good… \| by Suraj Parmar \| Nov, 2020 \| Medium](https://parmarsuraj99.medium.com/lets-talk-about-signals-841934f24450)
-- 手前味噌ですが Numerai アドベントカレンダーで書いた記事も共有しておきます
+- 手前味噌ですが Numerai アドベントカレンダーで書いた記事も一緒に共有しておきます
   - [Kedro を使って Numerai Signals 用のパイプライン構築](https://zenn.dev/regonn/articles/kedro-numerai-signals)
 
 予測結果をマーケットでフィルターをかけて次のような CSV で出力しておきます。
