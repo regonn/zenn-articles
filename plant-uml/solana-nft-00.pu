@@ -1,0 +1,29 @@
+@startuml
+
+!include https://raw.githubusercontent.com/future-architect/puml-themes/master/themes/puml-theme-toy.puml
+
+frame Solanaオンチェーン {
+    object SPLトークン
+	object メタデータアカウント
+}
+
+frame Solanaオフチェーン {
+	object オフチェーンメタデータ
+	object 画像等のバイナリデータ
+}
+
+SPLトークン : ミントアドレス
+
+オフチェーンメタデータ : Arweaveに保存したメタデータ情報(JSON)
+
+メタデータアカウント : オフチェーンメタデータURL
+
+画像等のバイナリデータ : Arweaveに保存した画像等のデータ
+
+メタデータアカウント <--> オフチェーンメタデータ
+
+SPLトークン <--> メタデータアカウント : ミントアドレス\n・\nメタデータ\nが紐づく
+
+画像等のバイナリデータ <--> オフチェーンメタデータ : バイナリデータURL
+
+@enduml
