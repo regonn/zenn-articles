@@ -52,6 +52,8 @@ Kaggleのノウハウが生かされいて、今後Numerai初心者がTournament
 
 ## Signalsのモデル作成方法	ageonsenさん
 
+https://zenn.dev/ageonsen/articles/923e6effd5f58f
+
 Tournament・Signalsでリーダーボードの上位を取得している ageonsen さんによる、Signalsのモデルの作成方法。
 最初からデータが用意されているTournamentとは異なり、自分でデータ取得からやっていく必要があるSignalsでモデルを作成するにあたって、大事な観点を 「clean data」x 「銘柄数」x 「モデリング」という項目に分けて、それぞれ、どのように行っていくと corr sharp を大きくしていくことができるかの話でした。
 Numerai参加者に硬い枕と揶揄される [ファイナンス機械学習](https://amzn.to/3E45b9e) に書かれている内容等から、Signalsのモデルを作成する際に必要なパラメータの参考値等をSignalsのデータに合わせて設定するときに参考になりそうな発表でした。
