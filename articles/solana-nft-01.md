@@ -3,7 +3,7 @@ title: "SolanaのNFTをMintするまで解説 2/4 Walletに入っているNFTの
 emoji: "☀"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["solana", "nft", "ブロックチェーン"]
-published: false
+published: true
 ---
 
 [Solana アドベントカレンダー 2021](https://adventar.org/calendars/6174) の記事です。
@@ -40,13 +40,13 @@ Python で Solana の情報を参照したり操作するためのSDKです。Gi
 pip を利用して必要なライブラリをインストールします。
 base58 はバイナリデータを文字列で表現するフォーマットで、base64 から視認性として間違えやすい小文字のl(エル)と数字の1などを考慮して一部の文字が取り除かれています。
 
-```
+```sh
 pip install solana==0.19.1 base58==2.1.1
 ```
 
 ### ライブラリ読み込みや設定
 
-```
+```python
 # solana ライブラリで利用するもの
 from solana.publickey import PublicKey # アドレスを扱えるようにするための Class
 from solana.rpc.api import Client # オンチェーンデータの参照や操作を行う
@@ -63,7 +63,7 @@ import requests
 
 Solana ではアップロードされたプログラム(スマートコントラクト)がPublicKey(アドレス)から呼べるので、今回利用する、MetaplexやSPL token programをPublicKeyで利用できるようにしておきます。
 
-```
+```python
 # Solana上にデプロイされたプログラムID
 METADATA_PROGRAM_ID = PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s')
 TOKEN_PROGRAM_ID = PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')
@@ -71,7 +71,7 @@ TOKEN_PROGRAM_ID = PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')
 
 [前回の記事](https://zenn.dev/regonn/articles/solana-nft-00)で利用した、NFTを一つだけ持っているアカウント[DDM479qxu1s9eZF8cf8ygRzSGUdhghNymdfdUTWJYxoT](https://solscan.io/account/DDM479qxu1s9eZF8cf8ygRzSGUdhghNymdfdUTWJYxoT#tokenAccounts)を利用します。
 
-```
+```python
 # メインネットを利用する
 client = Client("https://api.mainnet-beta.solana.com")
 
@@ -83,7 +83,7 @@ WALLET_ADDRESS = "DDM479qxu1s9eZF8cf8ygRzSGUdhghNymdfdUTWJYxoT"
 
 clientでまずは、Walletが持っているトークン情報を取得します。扱いやすいようにJSONパースされた情報で取得します。
 
-```
+```python
 # encoding= 'jsonParsed' を設定しないと、Base64 等エンコードされたdataが返ってくるので注意
 opts = TokenAccountOpts(program_id = TOKEN_PROGRAM_ID, encoding= 'jsonParsed')
 # https://michaelhly.github.io/solana-py/api.html#solana.rpc.api.Client.get_token_accounts_by_owner
@@ -93,7 +93,7 @@ data = client_response['result']['value'][0]['account']['data']['parsed']
 
 `data` には持っているトークン情報が入っています。
 
-```
+```json
 {'info': {'isNative': False,
   'mint': '6pLr2MnfGmjZY71bSrofxVop2Nab8fBF8tWv2Y1R6sMg',
   'owner': 'DDM479qxu1s9eZF8cf8ygRzSGUdhghNymdfdUTWJYxoT',
@@ -111,14 +111,14 @@ data = client_response['result']['value'][0]['account']['data']['parsed']
 
 現在は SPLトークン 情報が手に入っているので、SPLトークンが持っているミントアドレス情報からメタデータカウントが持っている情報を取得していきます。
 
-```
+```python
 mint_address = data['info']['mint']
 # 6pLr2MnfGmjZY71bSrofxVop2Nab8fBF8tWv2Y1R6sMg
 ```
 
 次に、メタデータアカウントの情報を取得するのですが、オンチェーンデータで情報量を圧縮するために、バイナリ形式で保存されているため、扱いやすいデータで取得するために、公式の[python-api](https://github.com/metaplex-foundation/python-api)からコードを持ってきます。コード自体は少し長めですが、`unpack_metadata_account` ではMetaplex仕様でバイナリデータ化されたものを順に可読情報へと取得しています。
 
-```
+```python
 # https://github.com/metaplex-foundation/python-api/blob/4a0eee2dda938445855373b866c590ff6305f8fb/metaplex/metadata.py
 # 上のURLからコード取得(今後更新される可能性が高いので、コミット番号を固定しています)
 
@@ -190,7 +190,7 @@ def unpack_metadata_account(data):
 
 実際にデータを取得してきます。
 
-```
+```python
 metadata_account = get_metadata_account(mint_address)
 # G5pwNCq6XSxS53WgJn1x7tLuizN5nV9WGeb283VdkvJp
 
@@ -204,7 +204,7 @@ metadata = unpack_metadata_account(decoded_data)
 
 これでやっと、オンチェーンメタデータが取得できました。
 
-```
+```json
 {'data': {'creators': [b'AuTF3kgAyBzsfjGcNABTSzzXK4bVcZcyZJtpCrayxoVp',
    b'E1bZ99d56AK9vCFq9Y5nC7ZVz2z8CcxVECsDTyZVksmS'],
   'name': 'Snek #8311',
@@ -221,7 +221,7 @@ metadata = unpack_metadata_account(decoded_data)
 
 ここで、オフチェーンメタデータURLが指定されているので、それを取得します。
 
-```
+```python
 metadata_uri = metadata['data']['uri']
 # https://arweave.net/mk6KmQM8Gb3RQoRV6qVnDqT146lfQX5SJ6fQah0Ba0Q
 
@@ -231,7 +231,7 @@ response_json = response.json()
 
 これでオフチェーンメタデータが取得できました。画像までもう一息です。
 
-```
+```json
 {'_fee_basis_points': 300,
  'attributes': [{'trait_count': 1566,
    'trait_type': 'background',
@@ -260,7 +260,7 @@ response_json = response.json()
 
 最後に画像URLを取得します。
 
-```
+```python
 url = response_json['image']
 # https://www.arweave.net/mbI9jCW3JUb6eMMRHqkCBpS_7N-IN4DPzW7x9GkA6Bs?ext=png
 ```

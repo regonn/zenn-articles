@@ -21,13 +21,13 @@ published: true
 
 ## Metaplex
 
-[公式サイト](https://www.metaplex.com/)
+https://www.metaplex.com/
 
 Solana 上で NFT のフォーマットを定めているフレームワークの一つです。この Metaplex 形式が多く採用されていて、この形式に則って NFT を発行すると、Phantom Wallet 等のウォレットで NFT が表示されるようになります。
 
 ### Arweave
 
-[公式サイト](https://www.arweave.org/)
+https://www.arweave.org/
 
 Arweave は、分散型のクラウドストレージネットワークで、データをアップロードする際にトークン(AR)を払い、ストレージを提供している人達に報酬として渡すという非中央集権的なシステムで運用されているものです。
 特徴としては、一度データをアップロードすると、半永久的にデータが保存される(基本削除ができない)ため、NFT のアップロード等にも相性がいいです。

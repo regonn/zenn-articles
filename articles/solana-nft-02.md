@@ -3,7 +3,7 @@ title: "SolanaのNFTをMintするまで解説 3/4 Arweaveに画像とオフチ�
 emoji: "☀"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["solana", "nft", "ブロックチェーン"]
-published: false
+published: true
 ---
 
 [Solana アドベントカレンダー 2021](https://adventar.org/calendars/6174) の記事です。
@@ -21,7 +21,7 @@ published: false
 
 ### ArweaveのWallet作成
 
-Solanaとは別に Arweave へデータをアップロードするには、別途AR WalletとARトークン(Solanaではなく、独立したトークン)が必要です。将来的には現在NFT([SSC](https://www.magiceden.io/marketplace/shadowy_super_coder_dao))が爆上げしている、[GenesysGo](https://twitter.com/GenesysGo)のShadow Driveというプロジェクトが運用され始めると、Solana経済圏で完結するかもしれないです。
+Solanaとは別に Arweave へデータをアップロードするには、別途AR WalletとARトークン(Solanaではなく、独立したトークン)が必要です。将来的には現在NFT([SSC](https://www.magiceden.io/marketplace/shadowy_super_coder_dao))が爆上げしている、[GenesysGo](https://twitter.com/GenesysGo)のShadow Driveというプロジェクトが運用され始めると、Solanaエコシステム上で完結するかもしれないです。
 
 AR を手に入れるには海外取引所が必要になってくるので、触りだけやってみたい人は公式の初回Wallet作成とTweet投稿でAirdropがもらえるので利用してみるのも良いと思います。
 
@@ -42,13 +42,13 @@ ArweaveをPythonで扱う場合は[arweave-python-client](https://pypi.org/proje
 
 ### 環境構築
 
-```
+```sh
 pip install arweave-python-client==1.0.14 matplotlib==3.2.2 pillow==7.1.2
 ```
 
 ### ライブラリ読み込みや設定
 
-```
+```python
 import random
 from matplotlib.pyplot import imshow
 from PIL import Image, ImageDraw
@@ -65,7 +65,7 @@ OBJ_NUMBERS = 100
 
 NFT用の画像を生成する部分です。seed値を変更することで、生成画像も変わります。
 
-```
+```python
 def generate_random_image(seed):
     IMG_SIZE = 320
     random.seed(seed)
@@ -106,7 +106,7 @@ https://arweavefees.com/
 
 では、実際にアップロードしていきます。
 
-```
+```python
 import arweave
 import json
 
@@ -118,14 +118,14 @@ wallet = arweave.Wallet(wallet_file_path)
 
 保有額等も確認できます。
 
-```
+```python
 wallet.balance
 # 0.10184796595
 ```
 
 画像を読み込んでアップロードします。トランザクションを生成するとアップロードされます。
 
-```
+```python
 # コード実行で実際にトランザクション(アップロード処理)が実行されるので注意
 with open('./bubbles.png', 'rb') as img:
     img_data = img.read()
@@ -151,7 +151,7 @@ https://docs.metaplex.com/nft-standard#uri-json-schema
 
 項目が多いのでコメントで説明してあります。詳しくはドキュメントをご覧下さい。
 
-```
+```python
 name = f'Bubbles #{seed_number}' # NFT のタイトル通し番号等も振っておくと良さそう
 metadata = {
     'name': name, # 名前
@@ -200,7 +200,7 @@ metadata = {
 
 画像同様に今度はjsonデータをArweaveにアップロードします。
 
-```
+```python
 json_str = json.dumps(metadata) # JSON の文字列化
 
 # コード実行で実際にトランザクション(アップロード処理)が実行されるので注意
@@ -222,7 +222,7 @@ json_url = f"https://www.arweave.net/{metadata_transaction_data['id']}"
 Arweaveにアップロード情報はWalletからも取得できます。
 次のようなコードでデータ取得が可能です。
 
-```
+```python
 from arweave.arweave_lib import arql # arql という sql のようなデータベース参照に似た ar の情報を取得するための記法
 transaction_ids = arql(
     wallet,
@@ -235,5 +235,9 @@ tx = arweave.Transaction(wallet, id=transaction_ids[0]) #一番最後にアッ�
 tx.get_transaction()
 tx.get_data()
 tx.data
-# b'{"name": "Bubbles #4", "symbol": "", "description": "What a beautiful bubbles!", "seller_fee_basis_points": 500, "external_url": "https://twitter.com/regonn_haizine", "attributes": [{"trait_type": "name", "value": "Bubbles #4"}, {"trait_type": "obj_size", "value": 10}, {"trait_type": "obj_numbers", "value": 100}], "collection": {"name": "Bubbles", "family": "NFT Study"}, "properties": {"files": [{"uri": "https://www.arweave.net/_j4HsitIYojvq3EpXubq9HyeMRPo9agkbAfPpXcIdqI?ext=png", "type": "image/png"}], "category": "image", "creators": [{"address": "A8r5gPBeUHbguZ6mKGB1zzbKhMHtfQdWx6YqXQ94Ujjd", "share": 100}]}, "image": "https://www.arweave.net/_j4HsitIYojvq3EpXubq9HyeMRPo9agkbAfPpXcIdqI?ext=png"}'
+```
+
+`tx.data` の中身
+```json
+{"name": "Bubbles #4", "symbol": "", "description": "What a beautiful bubbles!", "seller_fee_basis_points": 500, "external_url": "https://twitter.com/regonn_haizine", "attributes": [{"trait_type": "name", "value": "Bubbles #4"}, {"trait_type": "obj_size", "value": 10}, {"trait_type": "obj_numbers", "value": 100}], "collection": {"name": "Bubbles", "family": "NFT Study"}, "properties": {"files": [{"uri": "https://www.arweave.net/_j4HsitIYojvq3EpXubq9HyeMRPo9agkbAfPpXcIdqI?ext=png", "type": "image/png"}], "category": "image", "creators": [{"address": "A8r5gPBeUHbguZ6mKGB1zzbKhMHtfQdWx6YqXQ94Ujjd", "share": 100}]}, "image": "https://www.arweave.net/_j4HsitIYojvq3EpXubq9HyeMRPo9agkbAfPpXcIdqI?ext=png"}
 ```

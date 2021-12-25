@@ -3,7 +3,7 @@ title: "SolanaのNFTをMintするまで解説 4/4 SPLトークンをミントし
 emoji: "☀"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["solana", "nft", "ブロックチェーン"]
-published: false
+published: true
 ---
 
 [Solana アドベントカレンダー 2021](https://adventar.org/calendars/6174) の記事です。
@@ -23,7 +23,7 @@ published: false
 
 今回はMetaplex公式の [python-api](https://github.com/metaplex-foundation/python-api) のコードを持ってきて、それを利用します。
 
-```
+```sh
 git clone https://github.com/metaplex-foundation/python-api.git
 cd python-api
 # ライブラリでバージョン管理されていないので最新コミットに固定
@@ -36,7 +36,7 @@ pip install -r ./requirements.txt
 
 Mintをするために必要な Solana のアカウントを生成していきます。このまま実行するとゴミNFTが生成されてしまうので、 devnet で行っていきます。
 
-```
+```python
 from api.metaplex_api import MetaplexAPI
 from cryptography.fernet import Fernet
 
@@ -69,7 +69,7 @@ keys_dict["source_account_public_key"] = str(source_account.public_key)
 ここまでで Wallet が生成できているはずで、ちゃんと後から復元できるように、SecretKeyが正しいのかを確認しておきます。
 SecretKeyからKeypairを作成して、そのPublicKeyが同じものかで確認しておきます。
 
-```
+```python
 source_account.public_key == Keypair(keys_dict["source_account_secret_key"]).public_key
 ```
 
@@ -79,7 +79,7 @@ source_account.public_key == Keypair(keys_dict["source_account_secret_key"]).pub
 
 https://solfaucet.com/
 
-```
+```python
 # MetaplexAPI に渡す用のコンフィグ生成
 metaplex_config_dict = {
     "PRIVATE_KEY": base58.b58encode(source_account.secret_key).decode("ascii"),
@@ -93,14 +93,14 @@ seller_basis_fees = 500 # セカンダリーマーケットで指定した creat
 
 Mint します。
 
-```
+```python
 result_json = metaplex_api.deploy(api_endpoint, "Bubbles", "BUBBLENFT", seller_basis_fees)
 ```
 
 私の場合は15秒程待って confirm transaction がログに出てきました。これはチェーンの混み具合によっても変動すると思います。
 次のコードを実行すれば、実際にトークンの情報を確認できるURLを取得できます。
 
-```
+```python
 mint_address = json.loads(result_json)['contract']
 f'https://solscan.io/token/{mint_address}?cluster=devnet'
 ```
@@ -115,7 +115,7 @@ f'https://solscan.io/token/{mint_address}?cluster=devnet'
 
 ![](https://storage.googleapis.com/zenn-user-upload/f2da3dcda197-20211213.png)
 
-```
+```python
 # NFTを送る先のwalletを作成している。本番だったらWalletの public key だけあれば大丈夫
 wallet_json = metaplex_api.wallet()
 wallet = json.loads(wallet_json)
@@ -128,13 +128,13 @@ metaplex_api.topup(api_endpoint, wallet['address'])
 
 Mintします。
 
-```
+```python
 metaplex_api.mint(api_endpoint, mint_address, wallet['address'], offchain_metadata_uri)
 ```
 
 ここまで利用したWallet情報等を json ファイルで書き出しておきます。
 
-```
+```python
 with open('../solana-nft-keys.json', 'w') as fp:
     json.dump(keys_dict, fp)
 ```
@@ -143,7 +143,7 @@ with open('../solana-nft-keys.json', 'w') as fp:
 
 これで、一通りのNFTをMintする作業が終わりましたが、ちゃんとできているのか、第2回の記事で利用したコードを使って、NFT情報を確認してみましょう。
 
-```
+```python
 # 第2回で利用したコード
 
 from solana.publickey import PublicKey
@@ -224,7 +224,7 @@ metadata = unpack_metadata_account(decoded_data)
 
 `metadata` (オンチェーンメタデータ)は次のようになっていて大丈夫そうでした。
 
-```
+```json
 {'data': {'creators': [b'EZD3kuYkYwwWfRwoCZSz7Fws4YC6P8xTBU633M1CBbrT'],
   'name': 'Bubbles',
   'seller_fee_basis_points': 500,
@@ -240,7 +240,7 @@ metadata = unpack_metadata_account(decoded_data)
 
 オフチェーンメタデータにたどり着けるかも確認します。
 
-```
+```python
 metadata_uri = metadata['data']['uri']
 response = requests.get(metadata_uri)
 response_json = response.json()
@@ -248,7 +248,7 @@ response_json = response.json()
 
 `response_json` も前回作成して、Arweaveにアップロードした内容が確認できました。
 
-```
+```json
 {'attributes': [{'trait_type': 'name', 'value': 'Bubbles #4'},
   {'trait_type': 'obj_size', 'value': 10},
   {'trait_type': 'obj_numbers', 'value': 100}],
@@ -268,13 +268,13 @@ response_json = response.json()
 
 次を実行すれば、NFTを送ったWalletにNFTが入っているかも確認できます。
 
-```
+```python
 f'https://solscan.io/account/{wallet["address"]}?cluster=devnet'
 ```
 
 ![](https://storage.googleapis.com/zenn-user-upload/74f464d6585f-20211225.png)
 
-また、先程 SPL トークンを確認したときの Token ページもNFT情報が反映されて画像等が表示されているようになりました。
+また、先程 SPL トークンを確認したときの Token ページもNFT情報が反映されて画像等が表示されるようになり、Total SupplyやHoldersの値も更新されていることが確認できます。
 
 Before
 
@@ -292,7 +292,6 @@ After
 
 今後もWeb3やメタバース、DAO等と一緒に新しい技術やサービス・プロダクトが生まれて、ブロックチェーン界隈も盛り上がってくると思います。(どのブロックチェーンがメジャーになるかは別として)。
 
-個人的にはRustが使われている Solana を推していきたいので、今後も情報発信ができていけたらなと思います。
-まずは、確定申告に向けて Solana ブロックチェーンのトランザクションから税理士さんに渡す用のデータ生成したり、来年はDEXを利用したBOT等も作成していきたいなと思っています。
+個人的にはRustが使われている Solana を推していきたいので、今後も情報発信ができていけたらなと思います。まずは、確定申告に向けて Solana ブロックチェーンのトランザクションから税理士さんに渡す用のデータ生成したり、来年はDEXを利用したBOT等も作成していきたいなと思っています。
 
 それでは皆さん良いブロックチェーンライフを！
