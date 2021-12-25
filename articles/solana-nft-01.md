@@ -12,10 +12,10 @@ published: true
 
 4 回に分けて記事投稿予定で、利用する技術は Metaplex と Arweave の予定です。
 
-- [NFT のデータ構成を把握して Token 情報から NFT 画像まで辿れるようにする](https://zenn.dev/regonn/articles/solana-nft-00)
-- Solana.py を利用して、Wallet の NFT 画像を取得する  ← ココ
-- [Arweave に画像とオフチェーンメタデータをアップロードする](https://zenn.dev/regonn/articles/solana-nft-02)
-- [SPL トークンをミントして NFT を作成する](https://zenn.dev/regonn/articles/solana-nft-03)
+- [1/4 NFT のデータ構成を把握して Token 情報から NFT 画像まで辿れるようにする](https://zenn.dev/regonn/articles/solana-nft-00)
+- 2/4 Solana.py を利用して、Wallet の NFT 画像を取得する  ← ココ
+- [3/4 Arweave に画像とオフチェーンメタデータをアップロードする](https://zenn.dev/regonn/articles/solana-nft-02)
+- [4/4 SPL トークンをミントして NFT を作成する](https://zenn.dev/regonn/articles/solana-nft-03)
 
 今回は Solana.py を利用して Wallet の NFT 画像を取得します。
 
