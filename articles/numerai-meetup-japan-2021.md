@@ -7,7 +7,7 @@ published: true
 ---
 
 [Numerai Advent Calendar 2021 \- Adventar](https://adventar.org/calendars/6226) の20日目の記事です。
-先日 [Numerai Meetup Japan2021](https://currypurin.notion.site/numerai-meetup-japan-9c0d5e30a9004ef5a3f702d2564523b4) が開催され、私も発表しましたので、参加報告レポートを書いていきます。
+先日 [Numerai Meetup Japan2021](https://numerai.connpass.com/event/231169/) が開催され、私も発表しましたので、参加報告レポートを書いていきます。
 
 ## Opening remark	katsu1110 さん
 
