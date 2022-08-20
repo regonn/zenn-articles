@@ -20,16 +20,16 @@
   },
   "homepage": "https://github.com/regonn/zenn-articles#readme",
   "dependencies": {
-    "zenn-cli": "^0.1.110"
+    "zenn-cli": "^0.1.117"
   },
   "devDependencies": {
-    "textlint": "^12.1.1",
+    "textlint": "^12.2.1",
     "textlint-rule-no-dropping-the-ra": "^3.0.0",
     "textlint-rule-no-mix-dearu-desumasu": "^5.0.0",
     "textlint-rule-preset-ja-technical-writing": "^7.0.0"
   },
   "volta": {
-    "node": "18.2.0",
-    "npm": "8.9.0"
+    "node": "16.16.0",
+    "npm": "8.11.0"
   }
 }

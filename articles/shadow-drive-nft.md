@@ -32,6 +32,12 @@ Solana でメジャーな NFT の仕様である、Metaplex を利用した詳�
 
 https://github.com/regonn/Shadow-Drive-NFT
 
+(2022/08/20 追記)
+以前のコードが、`@metaplex/js` というライブラリで古くなっていて `@metaplex-foundation/js` という新しいライブラリに更新して、Collection 周りの仕様も変わっていたので、Github のコードのみ更新しています。(なので、この記事のコードは古い状態です)
+具体的には、NFT の Collection には親 NFT を作成して、それに所属する形にしないといけなくなっていました。
+親の NFT のアドレスが、MagicEden などでの Collection ページの URL に使われているっぽいです。
+Shadow Drive SDK も最新版にして v2 で動くようにしています。
+
 ## NFT Mint
 
 ### npm プロジェクト作成
