@@ -54,7 +54,7 @@ https://github.com/everlastingsong/tour-de-whirlpool/
 
 流動性を提供する際に、預ける 2 個のトークンは一緒の価値になるようにしてあげる必要があるため、SDK で Swap を行います。Part1 のコードだけでも、シャノンの悪魔 BOT のようなリバランスするための Bot は作成可能です。(※シャノンの悪魔は、手数料が 0 に等しく、ある程度価格が安定している場合に成り立ちます。ブロックチェーンでのトークンは価値が一気に下る場合もあるのでお気をつけください。)
 
-### 開発環境を作成
+## 開発環境を作成
 
 Orca の SDK は Typescript なので、node で動かしていきます。
 
@@ -104,7 +104,7 @@ Typescript 前提で動かすので、ts-node を入れたり、ウォレット�
 }
 ```
 
-### Solana を利用できるようにする
+## Solana を利用できるようにする
 
 次のリンクを参考に、Solana CLI が動かせるようにしてください。
 
@@ -116,7 +116,7 @@ https://docs.solana.com/wallet-guide/file-system-wallet
 
 ここで生成される json ファイルは、秘密鍵にあたるので、他人への共有はしないように気をつけましょう。
 
-### Wallet にトークンと Solana を入れる
+## Wallet にトークンと Solana を入れる
 
 作成したウォレット宛に、トランザクション実行用の SOL と、BOT で取引するトークンを入れてくださいください。今回は(ORCA と USDC を取引する想定でやっていきます。)
 
@@ -126,7 +126,7 @@ https://docs.solana.com/wallet-guide/file-system-wallet
 $ solana-keygen pubkey xxxxx.json
 ```
 
-### Wallet の残高を取得する
+## Wallet の残高を取得する(環境構築)
 
 ちゃんと、残高があるかを確認できるようにしていきます。
 
@@ -149,9 +149,15 @@ ANCHOR_PROVIDER_URL=https://api.mainnet-beta.solana.com
 ANCHOR_WALLET=wallet.json
 ```
 
-ANCHOR_PROVIDER_URL には Solana の RPC サーバーのアドレスを設定してください。公式の RPC だと、連続で情報取得したときに 429 エラーになることが多いので有料の RPC サーバー等も検討してください。
+`ANCHOR_PROVIDER_URL` には Solana の RPC サーバーのアドレスを設定してください。公式の RPC だと、連続で情報取得したときに 429(Too Many Requests) エラーになることが多いので注意が必要です。
+私は 「Solana RPC Free」みたいに検索して [Alchemy](https://alchemy.com/?r=125a7afcdb9696e0) というサイトを見つけて、そこを利用しています。Alchemy 上で Create App から Solana の App を作成すると、　`https://solana-mainnet.g.alchemy.com/v2/XXXXXXXXXXXXXXXXXX` のような URL が生成されて、これが自分専用の RPC サーバーのアドレスになります。無料枠分で 1 時間に 1 回起動する Bot の分であれば大丈夫そうです。
+※ 他にも Solana の RPC サーバーを提供サービスは色々とありますので、Alchemy が必須ではないです
+
+https://alchemy.com/?r=125a7afcdb9696e0
 
 `ANCHOR_WALLET` は Solana Wallet のファイル名を設定してください。
+
+## Wallet の残高を取得する(コード)
 
 次に、取得のコードを書いていきます。
 
