@@ -400,3 +400,7 @@ signature: YYYYYYYYYYYYYYYYYYYYYY
 (※ ステーブルコインの USDC ですが 2023 年 3 月には価格が乖離するデペグが発生する現象も見られているのでご注意ください。)
 
 次回は、Solana 関連のヒストリカルデータ等を提供してくれている、Hello Moon API からロウソク足情報を取得し、tensorflow.js を利用して、簡単な機械学習でトレーニングをすることで、どれくらいの値幅で動きそうかを予測する部分を書いていきます。
+
+## Part 2 の記事
+
+https://zenn.dev/regonn/articles/orca-clamm-bot-02

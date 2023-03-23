@@ -285,3 +285,7 @@ $ npx ts-node 003-predict-from-api.ts
 ```
 
 これで、価格幅まで予測できたので、次回は Orca の集中流動性プールに流動性を提供して、定期的に値幅を調整していく Bot を作っていきます。
+
+## Part 3 の記事
+
+https://zenn.dev/regonn/articles/orca-clamm-bot-03
