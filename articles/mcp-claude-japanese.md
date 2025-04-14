@@ -6,6 +6,14 @@ topics: ["mcp", "obsidian", "claude"]
 published: true
 ---
 
+## 追記
+
+Google Drive の逐次読み込みタイプのファイルですと、Obsidian ファイルの内容を読み込む際に Claude Desktop が毎回エラーで失敗するようでした。別途[mcp-obsidian(※この記事では npm 版で、 新しい方は PyPI 版でライブラリが異なります)](https://github.com/MarkusPfundstein/mcp-obsidian) を使う記事をかきました。Google Drive を使っている人はこちらの方が良さそうです。
+
+https://zenn.dev/regonn/articles/mcp-claude-obsidian
+
+## 本文
+
 https://github.com/smithery-ai/mcp-obsidian
 
 mcp-obsidian を Claude Desktop で使おうとした時に、Obsidian の Vault を Google Drive 上で管理していたのですが、次のようなパスでした。
@@ -34,4 +42,4 @@ mcp-obsidian を Claude Desktop で使おうとした時に、Obsidian の Vault
 }
 ```
 
-無事読み込めました。
+無事 claude_desktop_config.json ファイルが Claude Desktop に読み込まれました。
