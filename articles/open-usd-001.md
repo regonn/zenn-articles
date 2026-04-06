@@ -2,7 +2,7 @@
 title: "OpenUSD を学んでいく(その1) ファイルフォーマットとPython API 環境構築"
 emoji: "🔼"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["openusd", "nvidia", "omniverse"]
+topics: ["usd", "openusd", "nvidia", "omniverse"]
 published: true
 ---
 
