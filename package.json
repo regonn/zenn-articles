@@ -4,6 +4,7 @@
   "description": "https://zenn.dev/regonn",
   "main": "index.js",
   "scripts": {
+    "check:book-bold": "bun scripts/check-book-bold.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,10 +21,12 @@
   },
   "homepage": "https://github.com/regonn/zenn-articles#readme",
   "dependencies": {
-    "zenn-cli": "^0.4.7"
+    "zenn-cli": "^0.5.15"
   },
   "devDependencies": {
+    "cheerio": "1.2.0",
     "textlint": "^15.5.2",
-    "textlint-rule-preset-ja-technical-writing": "^12.0.2"
+    "textlint-rule-preset-ja-technical-writing": "^12.0.2",
+    "zenn-markdown-html": "0.5.15"
   }
 }
