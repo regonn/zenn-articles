@@ -3,7 +3,7 @@ import { load } from "cheerio";
 import markdownToHtml from "zenn-markdown-html";
 
 const book = new URL("../books/learning-open-usd/", import.meta.url);
-const chapters = (await readdir(book)).filter(name => /^open-usd-\d+\.md$/.test(name)).sort();
+const chapters = (await readdir(book)).filter(name => /^open-usd-[a-z0-9-]+\.md$/.test(name)).sort();
 if (!chapters.length) throw new Error("検査対象の章が見つかりません。");
 
 for (const name of chapters) {
